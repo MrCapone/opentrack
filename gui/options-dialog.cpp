@@ -61,9 +61,7 @@ OptionsDialog::OptionsDialog(std::function<void(bool)> pause_keybindings) :
     tie_setting(main.tcomp_disable_src_roll, ui.tcomp_src_roll_disable);
 
     tie_setting(main.neck_z, ui.neck_z);
-#endif
 
-#if 0
     tie_setting(main.a_x.zero, ui.pos_tx);
     tie_setting(main.a_y.zero, ui.pos_ty);
     tie_setting(main.a_z.zero, ui.pos_tz);
@@ -84,9 +82,7 @@ OptionsDialog::OptionsDialog(std::function<void(bool)> pause_keybindings) :
     tie_setting(main.a_x.src, ui.src_x);
     tie_setting(main.a_y.src, ui.src_y);
     tie_setting(main.a_z.src, ui.src_z);
-#endif
 
-#if 0
     tie_setting(main.center_method, ui.center_method);
 
     tie_setting(main.tracklogging_enabled, ui.tracklogging_enabled);
@@ -108,6 +104,7 @@ OptionsDialog::OptionsDialog(std::function<void(bool)> pause_keybindings) :
 
         { main.key_toggle1, ui.toggle_text, ui.bind_toggle },
         { main.key_toggle2, ui.toggle_text_2, ui.bind_toggle_2 },
+
 #if 0
         { main.key_toggle_press1, ui.toggle_held_text, ui.bind_toggle_held },
         { main.key_toggle_press2, ui.toggle_held_text_2, ui.bind_toggle_held_2 },
