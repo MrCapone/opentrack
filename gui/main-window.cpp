@@ -74,11 +74,13 @@ MainWindow::MainWindow() :
     {
         modules.filters().push_front(std::make_shared<dylib>("", dylib::Filter));
 
+#if 0
         for (std::shared_ptr<dylib>& x : modules.trackers())
             ui.iconcomboTrackerSource->addItem(x->icon, x->name);
 
         for (std::shared_ptr<dylib>& x : modules.protocols())
             ui.iconcomboProtocol->addItem(x->icon, x->name);
+#endif
 
         for (std::shared_ptr<dylib>& x : modules.filters())
             ui.iconcomboFilter->addItem(x->icon, x->name);
@@ -477,7 +479,7 @@ void MainWindow::start_tracker_()
     if (pProtocolDialog)
         pProtocolDialog->register_protocol(work->libs.pProtocol.get());
 
-    pose_update_timer.start(50);
+    //pose_update_timer.start(50);
 
     // NB check valid since SelectedLibraries ctor called
     // trackers take care of layout state updates
@@ -495,7 +497,7 @@ void MainWindow::stop_tracker_()
     opts::set_teardown_flag(true); // XXX hack -sh 20160926
 
     pose_update_timer.stop();
-    ui.pose_display->rotate_sync(0,0,0, 0,0,0);
+    //ui.pose_display->rotate_sync(0,0,0, 0,0,0);
 
     if (pTrackerDialog)
         pTrackerDialog->unregister_tracker();
@@ -522,13 +524,15 @@ void MainWindow::stop_tracker_()
 
 void MainWindow::display_pose(const double *mapped, const double *raw)
 {
+#if 0
+    if (!work)
+        return;
+
     ui.pose_display->rotate_async(mapped[Yaw], mapped[Pitch], -mapped[Roll],
                                   mapped[TX], mapped[TY], mapped[TZ]);
 
-#if 0
     if (mapping_widget)
         mapping_widget->refresh_tab();
-#endif
 
     QLCDNumber* raw_[] = {
         ui.raw_x, ui.raw_y, ui.raw_z,
@@ -550,6 +554,7 @@ void MainWindow::display_pose(const double *mapped, const double *raw)
     if (work && work->libs.pProtocol)
         game_title = work->libs.pProtocol->game_name();
     set_title(game_title);
+#endif
 }
 
 void MainWindow::set_title(const QString& game_title_)
